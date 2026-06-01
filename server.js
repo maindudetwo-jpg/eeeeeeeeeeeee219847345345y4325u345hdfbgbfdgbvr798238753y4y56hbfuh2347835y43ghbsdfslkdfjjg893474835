@@ -1,10 +1,15 @@
 const express = require("express");
+const path = require("path");
 const ping = require("ping");
 
 const app = express();
 
-app.use(express.static("public"));
 app.use(express.json());
+
+// Serve index.html when visiting /
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+});
 
 app.post("/ping", async (req, res) => {
     const { ip } = req.body;
@@ -24,4 +29,7 @@ app.post("/ping", async (req, res) => {
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port);
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
