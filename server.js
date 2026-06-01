@@ -32,7 +32,7 @@ try {
 
     const result = await ping.promise.probe(ip);
 
-    console.log(result);
+    console.log("Ping result:", result);
 
     res.json(result);
 } catch (err) {
