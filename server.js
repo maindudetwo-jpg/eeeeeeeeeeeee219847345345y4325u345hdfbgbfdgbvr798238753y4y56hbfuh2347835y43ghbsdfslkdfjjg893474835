@@ -8,28 +8,36 @@ app.use(express.json());
 
 // Serve index.html when visiting /
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "index.html"));
+res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.post("/ping", async (req, res) => {
-    const { ip } = req.body;
+const { ip } = req.body;
 
-    try {
-        const result = await ping.promise.probe(ip);
+```
+try {
+    console.log(`Pinging: ${ip}`);
 
-        res.json({
-            alive: result.alive,
-            time: result.time
-        });
-    } catch (err) {
-        res.status(500).json({
-            error: err.message
-        });
-    }
+    const result = await ping.promise.probe(ip);
+
+    console.log("Ping result:", result);
+
+    res.json(result);
+
+} catch (err) {
+    console.error("Ping error:", err);
+
+    res.status(500).json({
+        error: err.message,
+        stack: err.stack
+    });
+}
+```
+
 });
 
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+console.log(`Server running on port ${port}`);
 });
