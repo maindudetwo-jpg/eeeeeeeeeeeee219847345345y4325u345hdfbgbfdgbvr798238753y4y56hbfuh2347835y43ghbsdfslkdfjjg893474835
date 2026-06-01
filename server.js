@@ -13,7 +13,6 @@ res.sendFile(path.join(__dirname, "index.html"));
 app.post("/ping", async (req, res) => {
 const { ip } = req.body;
 
-```
 console.log("Received ping request for:", ip);
 
 try {
