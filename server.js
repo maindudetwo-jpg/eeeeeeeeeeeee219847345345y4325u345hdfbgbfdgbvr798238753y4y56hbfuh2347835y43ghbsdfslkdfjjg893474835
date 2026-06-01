@@ -1,6 +1,15 @@
 const express = require("express");
 const path = require("path");
 
+console.log("Starting...");
+
+try {
+const ping = require("ping");
+console.log("Ping module loaded successfully");
+} catch (err) {
+console.error("Failed to load ping module:", err);
+}
+
 const app = express();
 
 app.get("/", (req, res) => {
