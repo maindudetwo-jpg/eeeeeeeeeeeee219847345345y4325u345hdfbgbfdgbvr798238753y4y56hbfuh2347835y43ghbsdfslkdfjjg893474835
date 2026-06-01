@@ -1,0 +1,13 @@
+{
+  "name": "terminal-ping",
+  "version": "1.0.0",
+  "description": "Terminal ping website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "ping": "^0.4.4"
+  }
+}
