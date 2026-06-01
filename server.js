@@ -1,14 +1,26 @@
 const express = require("express");
 const path = require("path");
-const ping = require("ping");
+
+console.log("Starting application...");
+
+let ping;
+
+try {
+ping = require("ping");
+console.log("Ping module loaded.");
+} catch (err) {
+console.error("Failed to load ping module:", err);
+process.exit(1);
+}
 
 const app = express();
 
 app.use(express.json());
 
-// Serve index.html when visiting /
 app.get("/", (req, res) => {
-res.sendFile(path.join(__dirname, "index.html"));
+const file = path.join(__dirname, "index.html");
+console.log("Serving:", file);
+res.sendFile(file);
 });
 
 app.post("/ping", async (req, res) => {
@@ -16,20 +28,18 @@ const { ip } = req.body;
 
 ```
 try {
-    console.log(`Pinging: ${ip}`);
+    console.log(`Pinging ${ip}`);
 
     const result = await ping.promise.probe(ip);
 
-    console.log("Ping result:", result);
+    console.log(result);
 
     res.json(result);
-
 } catch (err) {
     console.error("Ping error:", err);
 
     res.status(500).json({
-        error: err.message,
-        stack: err.stack
+        error: err.message
     });
 }
 ```
